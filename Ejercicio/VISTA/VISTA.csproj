@@ -101,27 +101,6 @@
     <Content Include="Include\js\datatables-simple-demo.js" />
     <Content Include="Include\js\scripts.js" />
     <Content Include="Pages\Index.aspx" />
-    <Content Include="Pages\WebForm1.aspx" />
-    <Content Include="Pages\ModificarClave.aspx" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\401.html" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\404.html" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\500.html" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\assets\demo\chart-area-demo.js" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\assets\demo\chart-bar-demo.js" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\assets\demo\chart-pie-demo.js" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\assets\demo\datatables-demo.js" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\assets\img\error-404-monochrome.svg" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\charts.html" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\css\styles.css" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\index.html" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\js\datatables-simple-demo.js" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\js\scripts.js" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\layout-sidenav-light.html" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\layout-static.html" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\login.html" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\password.html" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\register.html" />
-    <Content Include="startbootstrap-sb-admin-gh-pages\tables.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -139,20 +118,6 @@
     </Compile>
     <Compile Include="Pages\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ModificarClave.aspx.cs">
-      <DependentUpon>ModificarClave.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\ModificarClave.aspx.designer.cs">
-      <DependentUpon>ModificarClave.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
