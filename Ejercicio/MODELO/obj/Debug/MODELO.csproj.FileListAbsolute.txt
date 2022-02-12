@@ -1,0 +1,12 @@
+C:\Control de Versiones\Tiendita\Tiendita\MODELO\bin\Debug\MODELO.dll
+C:\Control de Versiones\Tiendita\Tiendita\MODELO\bin\Debug\MODELO.pdb
+C:\Control de Versiones\Tiendita\Tiendita\MODELO\obj\Debug\MODELO.csprojAssemblyReference.cache
+C:\Control de Versiones\Tiendita\Tiendita\MODELO\obj\Debug\MODELO.csproj.CoreCompileInputs.cache
+C:\Control de Versiones\Tiendita\Tiendita\MODELO\obj\Debug\MODELO.dll
+C:\Control de Versiones\Tiendita\Tiendita\MODELO\obj\Debug\MODELO.pdb
+C:\Control de Versiones\Ejercicio\Ejercicio\MODELO\bin\Debug\MODELO.dll
+C:\Control de Versiones\Ejercicio\Ejercicio\MODELO\bin\Debug\MODELO.pdb
+C:\Control de Versiones\Ejercicio\Ejercicio\MODELO\obj\Debug\MODELO.csprojAssemblyReference.cache
+C:\Control de Versiones\Ejercicio\Ejercicio\MODELO\obj\Debug\MODELO.csproj.CoreCompileInputs.cache
+C:\Control de Versiones\Ejercicio\Ejercicio\MODELO\obj\Debug\MODELO.dll
+C:\Control de Versiones\Ejercicio\Ejercicio\MODELO\obj\Debug\MODELO.pdb
