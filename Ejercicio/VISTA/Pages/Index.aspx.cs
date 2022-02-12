@@ -143,7 +143,40 @@ namespace VISTA.Pages
             }
             return promedio;
         }
-        
 
+        protected void gdv_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            
+            if (e.CommandName == "Rotar")
+            {
+                //capturar la fila
+                int numFila = ((GridViewRow)((LinkButton)e.CommandSource).Parent.Parent).RowIndex;
+
+                //Buscas el control ubicandolo por fila y columna, y lo agregas a un textbox  
+                TextBox txtValor = (gdv.Rows[numFila].Cells[8].FindControl("txtRotar") as TextBox);
+
+                //Obtienes el valor del textbox    
+                int rotar = Convert.ToInt32( txtValor.Text);
+
+                //Obtienes la clave del boundfield
+                string clave = (gdv.Rows[numFila].Cells[7].Text);
+
+                //convierte la clave en array
+                char[] charArray = clave.ToCharArray();
+                //llama al metodo rotar
+                char[] newArray= Rotar(charArray, rotar);
+                Label1.Text = "El resultado de la clave: "+ clave+ " al rotar "+rotar+ " espacios a la izquierda es " +newArray[0]+newArray[1] + newArray[2] + newArray[3] + newArray[4] + newArray[5];
+            }
+        }
+        static char[] Rotar(char[] charArray, int rotar)
+        {
+            char[] output = new char[charArray.Length];
+
+            for (int i = 0; i < charArray.Length; i++)
+            {
+                output[((i + (rotar * -1)) + charArray.Length) % charArray.Length] = charArray[i];
+            }
+            return output;
+        }
     }
 }
