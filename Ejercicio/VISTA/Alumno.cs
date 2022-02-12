@@ -15,7 +15,6 @@ namespace VISTA
         public int grado { get; set; }
         public string grupo { get; set; }
         public float calificacion { get; set; }
-        //public int edad { get ; set ; }
         
         public Alumno(){}
         public int edad

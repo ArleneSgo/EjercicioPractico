@@ -12,7 +12,7 @@ namespace VISTA.Pages
 {
     public partial class Index : System.Web.UI.Page
     {
-        List<Alumno> alumnos = new List<Alumno> { };
+        
         public string calificaciones = "[";
         public string alumnos1 = "[";
         protected void Page_Load(object sender, EventArgs e)
@@ -30,38 +30,27 @@ namespace VISTA.Pages
             {
                 //Read the first Sheet from Excel file.
                 IXLWorksheet workSheet = workBook.Worksheet(1);
+                //Create alumns list
+                List<Alumno> alumnos = new List<Alumno> { };
 
-                //Create a new DataTable.
-                DataTable dt = new DataTable();
 
                 //Loop through the Worksheet rows.
                 bool firstRow = true;
 
-                //Define Alumno's list
-                
-
                 foreach (IXLRow row in workSheet.Rows())
                 {
-                    //Use the first row to add columns to DataTable.
                     if (firstRow)
                     {
-                        foreach (IXLCell cell in row.Cells())
-                        {
-                            dt.Columns.Add(cell.Value.ToString());
-                        }
                         firstRow = false;
                     }
                     else
                     {
-                        //Add rows to DataTable.
-                        dt.Rows.Add();
+                        
                         int i = 0;
 
                         Alumno alumno = new Alumno();
                         foreach (IXLCell cell in row.Cells())
                         {
-                            dt.Rows[dt.Rows.Count - 1][i] = cell.Value.ToString();
-                            
                             switch (i)
                             {
                                 case 0:
@@ -95,18 +84,9 @@ namespace VISTA.Pages
                     
                     gdv.DataSource = alumnos;
                     gdv.DataBind();
-                    //GridView1.Columns[0].HeaderText = "Nombres";
-                    
-
-
-                    //GridView1.DataSource = dt;
                     
                 }
-                //cargar grafica de barras
-                //if (!IsPostBack)
-                //{
-                //var queryArticulo = bd.tablaPrestamo.Select(pre2 => pre2.nombre).GroupBy(j => j).Select(m => new { articulo = m.Key, cuenta = m.Count() });
-
+                
                 CrearGrafica(alumnos);
                 mejorCal.Text += CalcularMejor(alumnos) + " \n";
                 peorCal.Text += CalcularPeor(alumnos) + "\n";

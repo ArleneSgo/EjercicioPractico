@@ -6,7 +6,7 @@
         <h1 class="mt-4">Tables</h1>
         <div id="form1" runat="server">
              <asp:FileUpload ID="FileUpload1" runat="server" />
-            <asp:Button ID="btnImport" runat="server" Text="Import" OnClick="ImportExcel" />
+            <asp:Button ID="btnImport" runat="server" Text="Importar" OnClick="ImportExcel" />
             <hr />
             <div class="card mb-4">
                 <div class="card-header">
@@ -19,7 +19,7 @@
                         <asp:BoundField DataField="nombres" HeaderText="Nombres"></asp:BoundField>
                         <asp:BoundField DataField="apMaterno" HeaderText="Apellido Materno"></asp:BoundField>
                         <asp:BoundField DataField="apPaterno" HeaderText="Apellido Paterno"></asp:BoundField>
-                        <asp:BoundField DataField="fechaNacimiento" HeaderText="Fecha de Nacimiento"></asp:BoundField>
+                        <asp:BoundField DataField="fechaNacimiento" DataFormatString="{0:d}"  HeaderText="Fecha de Nacimiento"></asp:BoundField>
                         <asp:BoundField DataField="grado" HeaderText="Grado"></asp:BoundField>
                         <asp:BoundField DataField="grupo" HeaderText="Grupo"></asp:BoundField>
                         <asp:BoundField DataField="calificacion" HeaderText="Calificaci&#243;n"></asp:BoundField>
