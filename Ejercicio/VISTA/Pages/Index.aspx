@@ -1,13 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaestra.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="VISTA.Pages.Index" %>
 <%@ import Namespace="VISTA" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid px-4">
         <h1 class="mt-4">Tables</h1>
         <div id="form1" runat="server">
-             <asp:FileUpload ID="FileUpload1" runat="server" />
+            <asp:FileUpload ID="FileUpload1" runat="server" />
             <asp:Button ID="btnImport" runat="server" Text="Importar" OnClick="ImportExcel" />
+            <asp:Label ID="lblEstado" runat="server"></asp:Label>
             <hr />
 
             
@@ -30,7 +32,9 @@
 
                             <asp:TemplateField HeaderText="Rotar Clave">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtRotar" Width="35px" runat="server"></asp:TextBox>
+                                    <asp:Label ID="Label2" runat="server" Text="Número de veces a rotar" ></asp:Label>
+                                    <asp:TextBox ID="txtRotar" Type="number" Width="35px" runat="server"></asp:TextBox>
+                                    <asp:Label ID="lblRequerido" runat="server" Text="* Campo requerido" ForeColor="Red" Visible="false"></asp:Label>
                                     <asp:LinkButton ID="imgRotar" runat="server" CommandName="Rotar" ><i class="fas fa-edit"></i></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -66,10 +70,23 @@
     </div>
     
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+   <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="card-body text-warning">
+            <asp:Label  runat="server" >Hermosillo  <i class="fas fa-temperature-high"></i> </asp:Label>
+            <div id="lblTemperatura"></div>
+            
+        </div>
+    </div>
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
     <!--ESTA ES DE LA GRAFICA DE BARRAS -->
-       <script> var calificaciones = <%:calificaciones.ToString()%></script>
-       <script> var alumnos = <%=alumnos1.ToString()%></script>
-       <script src="/Include/assets/demo/chart-bar-demo.js"></script>        
-   
+       <script>
+           var calificaciones = <%:calificaciones.ToString()%>
+           var alumnos = <%=alumnos1.ToString()%>
+       </script>
+       
+       <!--ESTA ES LA CONEXIÓN CON LA API -->
+        <script src="../Include/assets/demo/app.js"></script>
+        
 </asp:Content>

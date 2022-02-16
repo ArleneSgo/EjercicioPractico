@@ -15,83 +15,104 @@ namespace VISTA.Pages
         
         public string calificaciones = "[";
         public string alumnos1 = "[";
+        
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
         protected void ImportExcel(object sender, EventArgs e)
         {
-            //Save the uploaded Excel file.
-            string filePath = Server.MapPath("~/Include/") + Path.GetFileName(FileUpload1.PostedFile.FileName);
-            FileUpload1.SaveAs(filePath);
 
-            //Open the Excel file using ClosedXML.
-            using (XLWorkbook workBook = new XLWorkbook(filePath))
+            var extensionesPermitidas = new String[] { ".xls", ".xlsx" };
+            
+            if (FileUpload1.HasFile)
             {
-                //Read the first Sheet from Excel file.
-                IXLWorksheet workSheet = workBook.Worksheet(1);
-                //Create alumns list
-                List<Alumno> alumnos = new List<Alumno> { };
 
+                var fileExtension = System.IO.Path.GetExtension(FileUpload1.FileName).ToLower();
 
-                //Loop through the Worksheet rows.
-                bool firstRow = true;
-
-                foreach (IXLRow row in workSheet.Rows())
+                if (extensionesPermitidas.Contains(fileExtension) == false)
                 {
-                    if (firstRow)
-                    {
-                        firstRow = false;
-                    }
-                    else
-                    {
-                        
-                        int i = 0;
+                    lblEstado.Text = "<div class='alert alert-danger'>Solo archivos excel son permitidos</div>";
+                }
+                else
+                {
+                    //Save the uploaded Excel file.
+                    string filePath = Server.MapPath("~/Include/") + Path.GetFileName(FileUpload1.PostedFile.FileName);
+                    FileUpload1.SaveAs(filePath);
 
-                        Alumno alumno = new Alumno();
-                        foreach (IXLCell cell in row.Cells())
+                    //Open the Excel file using ClosedXML.
+                    using (XLWorkbook workBook = new XLWorkbook(filePath))
+                    {
+                        //Read the first Sheet from Excel file.
+                        IXLWorksheet workSheet = workBook.Worksheet(1);
+                        //Create alumns list
+                        List<Alumno> alumnos = new List<Alumno> { };
+
+                        //Loop through the Worksheet rows.
+                        bool firstRow = true;
+
+                        foreach (IXLRow row in workSheet.Rows())
                         {
-                            switch (i)
+                            if (firstRow)
                             {
-                                case 0:
-                                    alumno.nombres = cell.Value.ToString();
-                                    break;
-                                case 1:
-                                    alumno.apMaterno = cell.Value.ToString();
-                                    break;
-                                case 2:
-                                    alumno.apPaterno = cell.Value.ToString();
-                                    break;
-                                case 3:
-                                    alumno.fechaNacimiento = DateTime.Parse( cell.Value.ToString());
-                                    break;
-                                case 4:
-                                    alumno.grado = int.Parse(cell.Value.ToString());
-                                    break;
-                                case 5:
-                                    alumno.grupo = cell.Value.ToString();
-                                    break;
-                                case 6:
-                                    alumno.calificacion = float.Parse(cell.Value.ToString());
-                                    break;
+                                firstRow = false;
                             }
-                            
-                            i++;
+                            else
+                            {
+
+                                int i = 0;
+
+                                Alumno alumno = new Alumno();
+                                foreach (IXLCell cell in row.Cells())
+                                {
+                                    switch (i)
+                                    {
+                                        case 0:
+                                            alumno.nombres = cell.Value.ToString();
+                                            break;
+                                        case 1:
+                                            alumno.apMaterno = cell.Value.ToString();
+                                            break;
+                                        case 2:
+                                            alumno.apPaterno = cell.Value.ToString();
+                                            break;
+                                        case 3:
+                                            alumno.fechaNacimiento = DateTime.Parse(cell.Value.ToString());
+                                            break;
+                                        case 4:
+                                            alumno.grado = int.Parse(cell.Value.ToString());
+                                            break;
+                                        case 5:
+                                            alumno.grupo = cell.Value.ToString();
+                                            break;
+                                        case 6:
+                                            alumno.calificacion = float.Parse(cell.Value.ToString());
+                                            break;
+                                    }
+
+                                    i++;
+
+                                }
+                                alumnos.Add(alumno);
+                            }
+
+                            gdv.DataSource = alumnos;
+                            gdv.DataBind();
+
 
                         }
-                        alumnos.Add(alumno);
+                        CrearGrafica(alumnos);
+                        mejorCal.Text += CalcularMejor(alumnos) + " \n";
+                        peorCal.Text += CalcularPeor(alumnos) + "\n";
+                        promedio.Text += CalcularPromedio(alumnos).ToString() + "\n";
+
                     }
-                    
-                    gdv.DataSource = alumnos;
-                    gdv.DataBind();
-                    
                 }
-                
-                CrearGrafica(alumnos);
-                mejorCal.Text += CalcularMejor(alumnos) + " \n";
-                peorCal.Text += CalcularPeor(alumnos) + "\n";
-                promedio.Text += CalcularPromedio(alumnos).ToString() + "\n";
-                    
+            }
+            else
+            {
+                lblEstado.Text = "<div class='alert alert-warning'>Primero debe cargar el archivo</div>"; ;
             }
         }
         protected void CrearGrafica(List<Alumno> alumnos)
@@ -103,6 +124,7 @@ namespace VISTA.Pages
             }
             calificaciones += "]";
             alumnos1 += "]";
+            
         }
         protected string CalcularMejor(List<Alumno> alumnos)
         {
@@ -154,18 +176,29 @@ namespace VISTA.Pages
 
                 //Buscas el control ubicandolo por fila y columna, y lo agregas a un textbox  
                 TextBox txtValor = (gdv.Rows[numFila].Cells[8].FindControl("txtRotar") as TextBox);
+                if (txtValor.Text == "")
+                {
+                    //En caso de que no se ha indicado el numero de veces a rotar
+                    gdv.Rows[numFila].Cells[8].FindControl("lblRequerido").Visible = true;
+                }
+                else
+                {
+                    //Obtienes el valor del textbox 
+                    gdv.Rows[numFila].Cells[8].FindControl("lblRequerido").Visible = false;
+                    int rotar = Convert.ToInt32(txtValor.Text);
 
-                //Obtienes el valor del textbox    
-                int rotar = Convert.ToInt32( txtValor.Text);
+                    //Obtienes la clave del boundfield
+                    string clave = (gdv.Rows[numFila].Cells[7].Text);
 
-                //Obtienes la clave del boundfield
-                string clave = (gdv.Rows[numFila].Cells[7].Text);
-
-                //convierte la clave en array
-                char[] charArray = clave.ToCharArray();
-                //llama al metodo rotar
-                char[] newArray= Rotar(charArray, rotar);
-                Label1.Text = "El resultado de la clave: "+ clave+ " al rotar "+rotar+ " espacios a la izquierda es " +newArray[0]+newArray[1] + newArray[2] + newArray[3] + newArray[4] + newArray[5];
+                    //convierte la clave en array
+                    char[] charArray = clave.ToCharArray();
+                    //llama al metodo rotar
+                    char[] newArray = Rotar(charArray, rotar);
+                    string claveNueva = "" + newArray[0] + newArray[1] + newArray[2] + newArray[3] + newArray[4] + newArray[5];
+                    gdv.Rows[numFila].Cells[7].Text = claveNueva;
+                    Label1.Text = "El resultado de la clave: " + clave + " al rotar " + rotar + " espacios a la izquierda es " + claveNueva;
+                    
+                }
             }
         }
         static char[] Rotar(char[] charArray, int rotar)
