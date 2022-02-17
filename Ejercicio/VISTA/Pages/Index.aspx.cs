@@ -12,23 +12,18 @@ namespace VISTA.Pages
 {
     public partial class Index : System.Web.UI.Page
     {
-        
         public string calificaciones = "[";
         public string alumnos1 = "[";
-        
-
         protected void Page_Load(object sender, EventArgs e)
         {
             
         }
         protected void ImportExcel(object sender, EventArgs e)
         {
-
             var extensionesPermitidas = new String[] { ".xls", ".xlsx" };
             
             if (FileUpload1.HasFile)
             {
-
                 var fileExtension = System.IO.Path.GetExtension(FileUpload1.FileName).ToLower();
 
                 if (extensionesPermitidas.Contains(fileExtension) == false)
@@ -60,7 +55,6 @@ namespace VISTA.Pages
                             }
                             else
                             {
-
                                 int i = 0;
 
                                 Alumno alumno = new Alumno();
@@ -90,23 +84,17 @@ namespace VISTA.Pages
                                             alumno.calificacion = float.Parse(cell.Value.ToString());
                                             break;
                                     }
-
                                     i++;
-
                                 }
                                 alumnos.Add(alumno);
                             }
-
                             gdv.DataSource = alumnos;
                             gdv.DataBind();
-
-
                         }
                         CrearGrafica(alumnos);
                         mejorCal.Text += CalcularMejor(alumnos) + " \n";
                         peorCal.Text += CalcularPeor(alumnos) + "\n";
                         promedio.Text += CalcularPromedio(alumnos).ToString() + "\n";
-
                     }
                 }
             }
@@ -117,6 +105,7 @@ namespace VISTA.Pages
         }
         protected void CrearGrafica(List<Alumno> alumnos)
         {
+            Label3.Visible = true;
             foreach (var a in alumnos)
             {
                 calificaciones += a.calificacion.ToString() + ",";
@@ -124,7 +113,6 @@ namespace VISTA.Pages
             }
             calificaciones += "]";
             alumnos1 += "]";
-            
         }
         protected string CalcularMejor(List<Alumno> alumnos)
         {
@@ -165,10 +153,9 @@ namespace VISTA.Pages
             }
             return promedio;
         }
-
         protected void gdv_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            
+            Label3.Visible = false;
             if (e.CommandName == "Rotar")
             {
                 //capturar la fila
@@ -197,7 +184,6 @@ namespace VISTA.Pages
                     string claveNueva = "" + newArray[0] + newArray[1] + newArray[2] + newArray[3] + newArray[4] + newArray[5];
                     gdv.Rows[numFila].Cells[7].Text = claveNueva;
                     Label1.Text = "El resultado de la clave: " + clave + " al rotar " + rotar + " espacios a la izquierda es " + claveNueva;
-                    
                 }
             }
         }

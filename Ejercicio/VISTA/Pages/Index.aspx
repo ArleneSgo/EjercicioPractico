@@ -11,8 +11,6 @@
             <asp:Button ID="btnImport" runat="server" Text="Importar" OnClick="ImportExcel" />
             <asp:Label ID="lblEstado" runat="server"></asp:Label>
             <hr />
-
-            
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
@@ -29,64 +27,61 @@
                             <asp:BoundField DataField="grupo" HeaderText="Grupo"></asp:BoundField>
                             <asp:BoundField DataField="calificacion" HeaderText="Calificaci&#243;n"></asp:BoundField>
                             <asp:BoundField DataField="clave" HeaderText="Clave"></asp:BoundField>
-
                             <asp:TemplateField HeaderText="Rotar Clave">
                                 <ItemTemplate>
                                     <asp:Label ID="Label2" runat="server" Text="Número de veces a rotar" ></asp:Label>
                                     <asp:TextBox ID="txtRotar" Type="number" Width="35px" runat="server"></asp:TextBox>
                                     <asp:Label ID="lblRequerido" runat="server" Text="* Campo requerido" ForeColor="Red" Visible="false"></asp:Label>
-                                    <asp:LinkButton ID="imgRotar" runat="server" CommandName="Rotar" ><i class="fas fa-edit"></i></asp:LinkButton>
+                                    <asp:LinkButton ID="imgRotar" runat="server" CommandName="Rotar"><i class="fas fa-undo"></i></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                  </div>
-                 </div>
-                <asp:Label ID="Label1" runat="server" Text=""></asp:Label><br />
-                <div class="card-body" id="layoutSidenav">
-                    <div class="row container-fluid">
-                        <div class="col-md-6">
-                            <div class="card mb-2">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar mr-1"></i>
-                                    Gráfica de Alumnos
-                                </div>
-                                <canvas id="myBarChart"" width="100%" height="50"></canvas>
+            </div>
+            <asp:Label ID="Label1" runat="server" Text=""></asp:Label><br />
+            <div class="card-body" id="layoutSidenav">
+                <div class="row container-fluid">
+                   <div class="col-md-6">
+                        <asp:Label ID="Label3" runat="server" Text=""> 
+                        <div class="card mb-2">
+                            <div class="card-header">
+                                <i class="fas fa-chart-bar mr-1"></i>
+                                Gráfica de Alumnos
                             </div>
+                            <canvas id="myBarChart"" width="100%" height="50"></canvas>
                         </div>
-                        <div class="card mb-4 col-md-4">
-                            <div class="card-body">
-                                <asp:Label ID="mejorCal" runat="server" Text="">Calificación más alta: </asp:Label>
-                                <br/>
-                                <asp:Label ID="peorCal" runat="server" Text="">Calificación más baja: </asp:Label>
-                                <br/>
-                                <asp:Label ID="promedio" runat="server" Text="">Promedio: </asp:Label>
-                            </div>
+                        </asp:Label>
+                    </div>
+                    <div class="card mb-4 col-md-4">
+                        <div class="card-body">
+                            <asp:Label ID="mejorCal" runat="server" Text="">Calificación más alta: </asp:Label>
+                            <br/>
+                            <asp:Label ID="peorCal" runat="server" Text="">Calificación más baja: </asp:Label>
+                            <br/>
+                            <asp:Label ID="promedio" runat="server" Text="">Promedio: </asp:Label>
                         </div>
                     </div>
                 </div>
-                
             </div>
+        </div>
     </div>
-    
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
    <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="card-body text-warning">
             <asp:Label  runat="server" >Hermosillo  <i class="fas fa-temperature-high"></i> </asp:Label>
             <div id="lblTemperatura"></div>
-            
         </div>
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
     <!--ESTA ES DE LA GRAFICA DE BARRAS -->
-       <script>
-           var calificaciones = <%:calificaciones.ToString()%>
-           var alumnos = <%=alumnos1.ToString()%>
-       </script>
+    <script>
+        const calificaciones = <%:calificaciones.ToString()%>
+        const alumnos = <%=alumnos1.ToString()%>
+    </script>
        
-       <!--ESTA ES LA CONEXIÓN CON LA API -->
-        <script src="../Include/assets/demo/app.js"></script>
-        
+    <!--ESTA ES LA CONEXIÓN CON LA API -->
+    <script src="../Include/assets/demo/app.js"></script>  
 </asp:Content>
